@@ -1,3 +1,12 @@
+// Esercizio
+// 1. Partendo dall’esercizio precedente, utilizziamo le API che abbiamo sviluppato durante il modulo su ExpressJS.
+// 2. Al caricamento dell’applicazione, sfruttando l’hook useEffect, recuperiamo la lista dei post dal backend e la mostriamo nella pagina.
+
+
+// step 1: apriamo il nostro back end avviamolo e testiamo con post mat
+// step 2: insattalliamo il pacchetto cors per darci accesso dal front end al back end
+// step 3: effettuaiamo la richiesta api tramite effect e controlliamo se arriva
+// step 4: modifichiamo il nostro articolo sia il map che l'initialForm data in base ai dati che arrivano
 
 
 // importiamo la libreria axios per effettuare le chiamate Api
