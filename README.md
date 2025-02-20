@@ -18,4 +18,4 @@ prima di far ciò, ricordatevi di installare e settare il modulo CORS sul vostro
 E ovviamente poi lanciarlo, sennò difficile possiate richiedergli qualcosa :
 
 <!-- BONUS: -->
-gestire la possibililtà che non ci siano ancora i post
+gestire la possibililtà che non ci siano ancora i post√

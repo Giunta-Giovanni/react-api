@@ -7,7 +7,7 @@
 // step 2: insattalliamo il pacchetto cors per darci accesso dal front end al back end√
 // step 3: effettuaiamo la richiesta api tramite effect e controlliamo se arriva√
 // step 4: modifichiamo il nostro articolo sia il map√
-// step 5: modifichiamo l'invio del form in base ai dati
+// step 5: modifichiamo l'invio del form in base ai dati√
 
 
 // importiamo la libreria axios per effettuare le chiamate Api
