@@ -3,9 +3,9 @@
 // 2. Al caricamento dell’applicazione, sfruttando l’hook useEffect, recuperiamo la lista dei post dal backend e la mostriamo nella pagina.
 
 
-// step 1: apriamo il nostro back end avviamolo e testiamo con post mat
-// step 2: insattalliamo il pacchetto cors per darci accesso dal front end al back end
-// step 3: effettuaiamo la richiesta api tramite effect e controlliamo se arriva
+// step 1: apriamo il nostro back end avviamolo e testiamo con postmat√
+// step 2: insattalliamo il pacchetto cors per darci accesso dal front end al back end√
+// step 3: effettuaiamo la richiesta api tramite effect e controlliamo se arriva√
 // step 4: modifichiamo il nostro articolo sia il map che l'initialForm data in base ai dati che arrivano
 
 
@@ -16,15 +16,15 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 // importiamo l'array di oggetti
-import dataArticoli from "../data/dataArticoli"
+// import dataArticoli from "../data/dataArticoli"
 
 // mettiamo l'oggetto vuoto all'interno di una variabile
 const initialFormData = {
     //aggiungiamo tutte le proprietà che vogliamo mappare e assegniamo loro un valore iniziale.
-    titolo: "",
-    autore: "",
-    contenuto: "",
-    categoria: "",
+    title: "",
+    content: "",
+    image: "",
+    tags: [],
     pubblicato: false,
 }
 
@@ -32,8 +32,25 @@ export default function Articoli() {
 
 
     // creiamo una variabile di stato che conterrà il nostro array di oggetti
-    const [articols, setArticols] = useState(dataArticoli)
+    const [articols, setArticols] = useState([])
     console.table(articols)
+
+    // Funzione di richiesta Api
+    function fetchArticols() {
+        // richiesta di chiamata a localhost 3000
+        axios.get('http://localhost:3000/posts')
+            // prendi i dati di risposta e inseriscili a res.data
+            .then((res) => setArticols(res.data),
+
+            )
+
+            .catch((error) => {
+                console.error("Errore durante il recupero dei dati:", error);
+            });
+
+    }
+
+
 
     // creiamo una variabile di stato che sarà riempita dell'oggetto sopra indicato
     const [formData, setFormData] = useState(initialFormData);
@@ -53,6 +70,7 @@ export default function Articoli() {
             [event.target.name]: value,
         }));
     }
+
 
     // Creiamo una funzione unica per gestire l'invio del form.
     const handleSubmitForm = (e) => {
@@ -92,6 +110,9 @@ export default function Articoli() {
         <section className="section-articoli">
             {/* contenitore esterno */}
             <div className="container">
+                <button onClick={fetchArticols} type="button" className="btn btn-secondary btn-lg">
+                    Aggiungi Articolo
+                </button>
                 <h2>Inserisci un Nuovo articolo</h2>
                 {/* PARTE OUTPUT FORM */}
                 <form className="form-articoli"
@@ -100,10 +121,10 @@ export default function Articoli() {
                     <input
                         type="text"
                         // questo sara event.target.name
-                        name="titolo"
+                        name="title"
                         // questo sarà event.target.value
                         // lo riempiamo con il valore corretto della proprietà mappata
-                        value={formData.titolo}
+                        value={formData.title}
                         onChange={handleFormData}
                         placeholder="Inserisci il titolo"
                     />
@@ -113,12 +134,12 @@ export default function Articoli() {
                     <input
                         type="text"
                         // questo sara event.target.name
-                        name="categoria"
+                        name="tags"
                         // questo sarà event.target.value
                         // lo riempiamo con il valore corretto della proprietà mappata
-                        value={formData.categoria}
+                        value={formData.tags}
                         onChange={handleFormData}
-                        placeholder="Inserisci la categoria"
+                        placeholder="Inserisci i tags"
                     />
 
 
@@ -126,10 +147,10 @@ export default function Articoli() {
                     <textarea
                         type="textarea"
                         // questo sara event.target.name
-                        name="contenuto"
+                        name="content"
                         // questo sarà event.target.value
                         // lo riempiamo con il valore corretto della proprietà mappata
-                        value={formData.contenuto}
+                        value={formData.content}
                         onChange={handleFormData}
                         placeholder="Inserisci il contenuto"
                     />
@@ -138,12 +159,12 @@ export default function Articoli() {
                     <input
                         type="textarea"
                         // questo sara event.target.name
-                        name="autore"
+                        name="image"
                         // questo sarà event.target.value
                         // lo riempiamo con il valore corretto della proprietà mappata
-                        value={formData.autore}
+                        value={formData.image}
                         onChange={handleFormData}
-                        placeholder="Inserisci l'autore"
+                        placeholder="Inserisci l'url dell'immagine"
                     />
                     <div className="d-flex justify-content-center">
                         <input
@@ -183,11 +204,7 @@ export default function Articoli() {
                                 {/* contenitore header */}
                                 <div className="toast-header">
                                     {/* titolo */}
-                                    <strong className="me-auto">{articolo.titolo}</strong>
-                                    {/* categoria */}
-                                    <span className="badge text-bg-secondary mx-2 p-2">
-                                        {articolo.categoria}
-                                    </span>
+                                    <strong className="me-auto">{articolo.title}</strong>
 
                                     {/* condizione per badge pubblicato*/}
                                     {articolo.pubblicato ?
@@ -217,10 +234,24 @@ export default function Articoli() {
 
                                 {/* contenitore corpo */}
                                 <div className="toast-body">
+
                                     {/* contenuto */}
-                                    <p>{articolo.contenuto}</p>
-                                    {/* autore */}
-                                    <p className="autore">{articolo.autore}</p>
+                                    <p>{articolo.content}</p>
+                                    {/* immagine */}
+                                    <div className="box-articolo-image">
+                                        <img src={`http://localhost:3000/${articolo.image}`} alt={articolo.title} />
+                                    </div>
+
+
+                                    {/* categoria */}
+                                    <ul className="category-list">
+                                        {articolo.tags?.map((tag, index) => (
+                                            <li key={index}>
+                                                <a href="#">{tag}</a>
+                                            </li>
+                                        ))}
+                                    </ul>
+
                                 </div>
                             </div>
                         ))}
