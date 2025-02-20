@@ -66,13 +66,18 @@ export default function Articoli() {
         const value = event.target.type === "checkbox" ?
             event.target.checked : event.target.value;
 
-
         // all'avvio della funzione richiama currentForm Data
         setFormData((currentformData) => ({
             // prendi tutto l'array 
             ...currentformData,
-            // e aggiungigli
-            [event.target.name]: value,
+            // e aggiungigli con condizione se la proprietà è tags 
+            [event.target.name]: event.target.name === "tags" ?
+                // allora il valore inseriscilo all'interno delle quadre
+                [event.target.value]
+                // altrimenti
+                :
+                // inserisci solo il valore
+                event.target.value
         }));
     }
 
