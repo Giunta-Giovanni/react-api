@@ -6,7 +6,8 @@
 // step 1: apriamo il nostro back end avviamolo e testiamo con postmat√
 // step 2: insattalliamo il pacchetto cors per darci accesso dal front end al back end√
 // step 3: effettuaiamo la richiesta api tramite effect e controlliamo se arriva√
-// step 4: modifichiamo il nostro articolo sia il map che l'initialForm data in base ai dati che arrivano
+// step 4: modifichiamo il nostro articolo sia il map√
+// step 5: modifichiamo l'invio del form in base ai dati
 
 
 // importiamo la libreria axios per effettuare le chiamate Api
@@ -49,6 +50,10 @@ export default function Articoli() {
             });
 
     }
+
+
+    // chiamata api effettuata all'avvio del server
+    useEffect(() => { fetchArticols() }, []);
 
 
 
@@ -110,9 +115,6 @@ export default function Articoli() {
         <section className="section-articoli">
             {/* contenitore esterno */}
             <div className="container">
-                <button onClick={fetchArticols} type="button" className="btn btn-secondary btn-lg">
-                    Aggiungi Articolo
-                </button>
                 <h2>Inserisci un Nuovo articolo</h2>
                 {/* PARTE OUTPUT FORM */}
                 <form className="form-articoli"
@@ -239,7 +241,7 @@ export default function Articoli() {
                                     <p>{articolo.content}</p>
                                     {/* immagine */}
                                     <div className="box-articolo-image">
-                                        <img src={`http://localhost:3000/${articolo.image}`} alt={articolo.title} />
+                                        <img src={articolo.image} alt={articolo.title} />
                                     </div>
 
 
