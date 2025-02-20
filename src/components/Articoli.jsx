@@ -1,10 +1,11 @@
-// Esercizio
-// Ampliare l’esercizio precedente aggiungendo, nel form, il campo autore, contenuto ed un campo per una categoria.√
-// Quindi ogni post ha le seguenti proprietà: id, titolo, autore, contenuto, categoria.√
 
 
-// importiamo use state
-import { useState } from "react";
+// importiamo la libreria axios per effettuare le chiamate Api
+import axios from "axios";
+
+// importiamo useState e lo useEffect
+import { useState, useEffect } from "react";
+
 // importiamo l'array di oggetti
 import dataArticoli from "../data/dataArticoli"
 
