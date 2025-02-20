@@ -1,4 +1,4 @@
-import Articoli from "./articoli";
+import Articoli from "./Articoli"
 
 export default function Main() {
 
