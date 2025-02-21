@@ -19,6 +19,9 @@ import { useState, useEffect } from "react";
 // importiamo l'array di oggetti
 // import dataArticoli from "../data/dataArticoli"
 
+// endpoint
+const endpoint = 'http://localhost:3000/posts'
+
 // mettiamo l'oggetto vuoto all'interno di una variabile
 const initialFormData = {
     //aggiungiamo tutte le proprietà che vogliamo mappare e assegniamo loro un valore iniziale.
@@ -26,7 +29,7 @@ const initialFormData = {
     content: "",
     image: "",
     tags: [],
-    pubblicato: false,
+    // pubblicato: false,
 }
 
 export default function Articoli() {
@@ -39,7 +42,7 @@ export default function Articoli() {
     // Funzione di richiesta Api
     function fetchArticols() {
         // richiesta di chiamata a localhost 3000
-        axios.get('http://localhost:3000/posts')
+        axios.get(endpoint)
             // prendi i dati di risposta e inseriscili a res.data
             .then((res) => setArticols(res.data),
 
@@ -82,26 +85,57 @@ export default function Articoli() {
     const handleSubmitForm = (e) => {
         e.preventDefault()
 
-        // inseriamo l'oggetto creato all'interno del nostro array
-        // diciamo a setArticols di prenderci il nostro array corrente
-        setArticols(currentarticols =>
-            // copia l'array corrente 
-            [...currentarticols,
-            {
-                // aggiungi id in ordine crescente con condizione se vuota parti da 1 
-                id: currentarticols.length === 0 ?
-                    1 : currentarticols[currentarticols.length - 1].id + 1,
-                // aggiungi il form inserito dall'utente
-                ...formData
-            }
-            ]);
+        // FRONT END CONNESSO A BACK END
+        // Chiamata api in post con invio dati del nuovo articolo
+        // fai una richiesta in post con endpoint e i dati che ti invio corrispondono a form data
+        axios.post(endpoint, formData)
+            .then(res => {
+
+                // uso la risposta api per prendere gli articoli e gli aggiungo i nuovi dati del form 
+                setArticols((currentArticols) => [...currentArticols, res.data])
+            })
+
+            .catch((error) => {
+                console.error("Errore durante il recupero dei dati:", error);
+            });
+
+
+
+
+
+        // SOLO FRONT END
+        // // inseriamo l'oggetto creato all'interno del nostro array
+        // // diciamo a setArticols di prenderci il nostro array corrente
+        // setArticols(currentarticols =>
+        //     // copia l'array corrente 
+        //     [...currentarticols,
+        //     {
+        //         // aggiungi id in ordine crescente con condizione se vuota parti da 1 
+        //         id: currentarticols.length === 0 ?
+        //             1 : currentarticols[currentarticols.length - 1].id + 1,
+        //         // aggiungi il form inserito dall'utente
+        //         ...formData
+        //     }
+        //     ]);
         // resetta il form utilizzando il preset di initialFormData
+
         setFormData(initialFormData)
     }
 
 
     // funzione di rimozione dei post
     function removeArticols(id) {
+
+        axios.delete(`${endpoint}/${id}`)
+            .then(res => {
+
+                // uso la risposta api per prendere gli articoli e gli aggiungo i nuovi dati del form 
+                setArticols((currentArticols) => [...currentArticols])
+            })
+
+            .catch((error) => {
+                console.error("Errore durante il recupero dei dati:", error);
+            });
 
         // filter sull'array
         const updateArticols = articols.filter(articol => {
@@ -169,7 +203,7 @@ export default function Articoli() {
                         onChange={handleFormData}
                         placeholder="Inserisci l'url dell'immagine"
                     />
-                    <div className="d-flex justify-content-center">
+                    {/* <div className="d-flex justify-content-center">
                         <input
                             name="pubblicato"
                             checked={formData.pubblicato}
@@ -178,7 +212,7 @@ export default function Articoli() {
                             type="checkbox"
                         />
                         <label htmlFor="pubblicato">Pubblicato</label>
-                    </div>
+                    </div> */}
                     <div className="box-btn">
                         <button type="submit" className="btn btn-secondary btn-lg">
                             Aggiungi Articolo
@@ -210,7 +244,7 @@ export default function Articoli() {
                                     <strong className="me-auto">{articolo.title}</strong>
 
                                     {/* condizione per badge pubblicato*/}
-                                    {articolo.pubblicato ?
+                                    {/* {articolo.pubblicato ?
                                         // se è vero badge verde
                                         <span className="badge text-bg-success mx-2 p-2">
                                             Pubblicato
@@ -220,7 +254,7 @@ export default function Articoli() {
                                         // se è falso badge rosso
                                         <span className="badge text-bg-danger mx-2 p-2">
                                             Non pubblicato
-                                        </span>}
+                                        </span>} */}
 
                                     {/* button delete */}
                                     <button
