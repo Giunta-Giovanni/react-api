@@ -64,20 +64,16 @@ export default function Articoli() {
     function handleFormData(event) {
         // gestiamo il valore se è preso da checkbox (true|false) oppure da text (stringhe)
         const value = event.target.type === "checkbox" ?
-            event.target.checked : event.target.value;
+
+            // condizione del valore di uscita
+            event.target.checked : event.target.name === 'tags' ? event.target.value.split(",") : event.target.value;
 
         // all'avvio della funzione richiama currentForm Data
         setFormData((currentformData) => ({
             // prendi tutto l'array 
             ...currentformData,
-            // e aggiungigli con condizione se la proprietà è tags 
-            [event.target.name]: event.target.name === "tags" ?
-                // allora il valore inseriscilo all'interno delle quadre
-                [event.target.value]
-                // altrimenti
-                :
-                // inserisci solo il valore
-                event.target.value
+            // aggiungi porpietà:valore
+            [event.target.name]: value
         }));
     }
 
