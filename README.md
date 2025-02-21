@@ -29,8 +29,8 @@ gestire la possibililtà che non ci siano ancora i post√
 Partendo dall’esercizio precedente, sviluppiamo parte delle CRUD e integriamo le API che abbiamo sviluppato durante il modulo su ExpressJS.
 
 Gestiamo i campi e il submit del form √
-assicuriamoci che questi dati vengano inviati al backend e correttamente salvati, per creare un nuovo post, e che quindi questo appaia anche in pagina.
+assicuriamoci che questi dati vengano inviati al backend e correttamente salvati, per creare un nuovo post, e che quindi questo appaia anche in pagina.√
 
 
 <!-- BONUS: -->
-Implementare la funzionalità di cancellazione, assicurandoci che funzioni sia sul frontend che sul backend (il post sparisce sulla pagina ma anche sul server). :metallica:
+Implementare la funzionalità di cancellazione, assicurandoci che funzioni sia sul frontend che sul backend (il post sparisce sulla pagina ma anche sul server).√CLEA

@@ -126,24 +126,28 @@ export default function Articoli() {
     // funzione di rimozione dei post
     function removeArticols(id) {
 
-        axios.delete(`${endpoint}/${id}`)
-            .then(res => {
-
-                // uso la risposta api per prendere gli articoli e gli aggiungo i nuovi dati del form 
-                setArticols((currentArticols) => [...currentArticols])
-            })
-
-            .catch((error) => {
-                console.error("Errore durante il recupero dei dati:", error);
-            });
-
         // filter sull'array
         const updateArticols = articols.filter(articol => {
             return articol.id !== id
         })
 
-        // aggiorna gli articoli 
-        setArticols(updateArticols);
+        // chiamata ad api sulla rotta di delete con parametro dinamico id
+        axios.delete(`${endpoint}/${id}`)
+
+            .then(res =>
+                // aggiorna gli articoli 
+                console.log(res),
+                // lo gestiamo anche nel front end
+                setArticols(updateArticols)
+            )
+
+            .catch((error) => {
+                console.error("Errore durante il recupero dei dati:", error);
+            });
+
+
+
+
     }
 
     return (
