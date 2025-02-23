@@ -29,7 +29,7 @@ const initialFormData = {
     content: "",
     image: "",
     tags: [],
-    // pubblicato: false,
+    pubblicato: false,
 }
 
 export default function Articoli() {
@@ -207,7 +207,7 @@ export default function Articoli() {
                         onChange={handleFormData}
                         placeholder="Inserisci l'url dell'immagine"
                     />
-                    {/* <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-center">
                         <input
                             name="pubblicato"
                             checked={formData.pubblicato}
@@ -216,7 +216,7 @@ export default function Articoli() {
                             type="checkbox"
                         />
                         <label htmlFor="pubblicato">Pubblicato</label>
-                    </div> */}
+                    </div>
                     <div className="box-btn">
                         <button type="submit" className="btn btn-secondary btn-lg">
                             Aggiungi Articolo
@@ -248,7 +248,7 @@ export default function Articoli() {
                                     <strong className="me-auto">{articolo.title}</strong>
 
                                     {/* condizione per badge pubblicato*/}
-                                    {/* {articolo.pubblicato ?
+                                    {articolo.pubblicato ?
                                         // se è vero badge verde
                                         <span className="badge text-bg-success mx-2 p-2">
                                             Pubblicato
@@ -258,7 +258,7 @@ export default function Articoli() {
                                         // se è falso badge rosso
                                         <span className="badge text-bg-danger mx-2 p-2">
                                             Non pubblicato
-                                        </span>} */}
+                                        </span>}
 
                                     {/* button delete */}
                                     <button
